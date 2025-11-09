@@ -18,9 +18,10 @@ window.addEventListener("message", (event) => {
   }
 });
 
-const circle = document.getElementById("circle");
 
 /*
+const circle = document.getElementById("circle");
+
 // ------------------ D2plqcer le cyrseur dans Web Embed ------------------
 document.addEventListener("mousemove", (e) => {
   // Déplacer le cercle dans le Web Embed
