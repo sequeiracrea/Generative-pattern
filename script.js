@@ -20,6 +20,8 @@ window.addEventListener("message", (event) => {
 
 const circle = document.getElementById("circle");
 
+/*
+// ------------------ D2plqcer le cyrseur dans Web Embed ------------------
 document.addEventListener("mousemove", (e) => {
   // Déplacer le cercle dans le Web Embed
   circle.style.left = `${e.clientX - circle.offsetWidth / 2}px`;
@@ -32,7 +34,7 @@ document.addEventListener("mousemove", (e) => {
     y: e.clientY
   }, "*");
 });
-
+*/
 
 // ------------------ Sélecteurs ------------------
 const pageSelector=document.getElementById("pageSelector");
