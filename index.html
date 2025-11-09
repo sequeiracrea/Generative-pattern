@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Quality App – Prototype</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Sélecteur de page -->
+  <select id="pageSelector" class="mode-selector">
+    <option value="home">Home</option>
+    <option value="timeline" selected>Timeline</option>
+    <option value="airQuality">Qualité de l’air</option>
+    <option value="pressure">Pression atmosphérique</option>
+    <option value="humidity">Hygrométrie</option>
+  </select>
+
+  <!-- Bouton lecture automatique pour timeline -->
+  <button id="realtimeBtn" class="realtime-btn">Lecture automatique : ON</button>
+
+  <!-- Pages -->
+  <div id="homePage" class="page">
+    <h1>Bienvenue</h1>
+    <p>Prototype de visualisation de la qualité de l'air et données environnementales.</p>
+  </div>
+
+  <div id="timelinePage" class="page">
+    <!-- Légende fixe à gauche -->
+    <div class="legends"></div>
+    <!-- Timeline -->
+    <div class="timeline-container">
+      <div class="timeline"></div>
+    </div>
+  </div>
+  
+  <!-- Circle Mouse interaction -->
+  <div id="circle"></div>
+  
+  <!-- Calques de fusion -->
+  <div class="color-burn-layer"></div>
+  <div class="color-dodge-layer"></div>
+  
+
+  <div id="airQualityPage" class="page chart-page">
+    <canvas id="aqiChart"></canvas>
+  </div>
+
+  <div id="pressurePage" class="page chart-page">
+    <canvas id="pressureChart"></canvas>
+  </div>
+
+  <div id="humidityPage" class="page chart-page">
+    <canvas id="humidityChart"></canvas>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
