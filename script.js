@@ -19,6 +19,27 @@ window.addEventListener("message", (event) => {
 });
 
 
+const circle = document.getElementById("circle");
+
+window.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || !data.name) return;
+
+  // Déplacement du cercle selon ProtoPie
+  if (data.name === "mouse_move") {
+    circle.style.left = `${data.x - circle.offsetWidth / 2}px`;
+    circle.style.top = `${data.y - circle.offsetHeight / 2}px`;
+  }
+
+  // Tes messages existants restent valides
+  if (data.name === "change_color") circle.style.background = data.color;
+  if (data.name === "resize_circle") {
+    circle.style.width = data.size + "px";
+    circle.style.height = data.size + "px";
+  }
+});
+
+
 /*
 const circle = document.getElementById("circle");
 
