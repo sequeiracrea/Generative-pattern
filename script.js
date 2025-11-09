@@ -18,7 +18,21 @@ window.addEventListener("message", (event) => {
   }
 });
 
+const circle = document.getElementById("circle");
 
+window.addEventListener("message", (event) => {
+  console.log("Message reçu dans embed :", event.data); // <-- test
+  const data = event.data;
+  if (!data || !data.name) return;
+
+  if (data.name === "mouse_move") {
+    circle.style.left = `${data.x - circle.offsetWidth / 2}px`;
+    circle.style.top = `${data.y - circle.offsetHeight / 2}px`;
+  }
+});
+
+
+/* LAST CODE
 const circle = document.getElementById("circle");
 
 window.addEventListener("message", (event) => {
@@ -38,7 +52,7 @@ window.addEventListener("message", (event) => {
     circle.style.height = data.size + "px";
   }
 });
-
+*/
 
 /*
 const circle = document.getElementById("circle");
