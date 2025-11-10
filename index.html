@@ -3,60 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Air Quality App – Prototype</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Circle Web Embed</title>
+  <style>
+    html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#111; }
+    #circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #00aaff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.05s linear;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Sélecteur de page -->
-  <select id="pageSelector" class="mode-selector">
-    <option value="home">Home</option>
-    <option value="timeline" selected>Timeline</option>
-    <option value="airQuality">Qualité de l’air</option>
-    <option value="pressure">Pression atmosphérique</option>
-    <option value="humidity">Hygrométrie</option>
-  </select>
-
-  <!-- Bouton lecture automatique pour timeline -->
-  <button id="realtimeBtn" class="realtime-btn">Lecture automatique : ON</button>
-
-  <!-- Pages -->
-  <div id="homePage" class="page">
-    <h1>Bienvenue</h1>
-    <p>Prototype de visualisation de la qualité de l'air et données environnementales.</p>
-  </div>
-
-  <div id="timelinePage" class="page">
-    <!-- Légende fixe à gauche -->
-    <div class="legends"></div>
-    <!-- Timeline -->
-    <div class="timeline-container">
-      <div class="timeline"></div>
-    </div>
-  </div>
-  
-  <!-- Circle Mouse interaction -->
   <div id="circle"></div>
-  
-  <!-- Calques de fusion -->
-  <div class="color-burn-layer"></div>
-  <div class="color-dodge-layer"></div>
-  
 
-  <div id="airQualityPage" class="page chart-page">
-    <canvas id="aqiChart"></canvas>
-  </div>
+  <script>
+    // SSE : écouter les événements depuis Render/Bridge
+    const evtSource = new EventSource("https://protopie-bridge.onrender.com/events");
+    const circle = document.getElementById("circle");
 
-  <div id="pressurePage" class="page chart-page">
-    <canvas id="pressureChart"></canvas>
-  </div>
+    evtSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        circle.style.left = `${data.x - circle.offsetWidth/2}px`;
+        circle.style.top = `${data.y - circle.offsetHeight/2}px`;
+      } catch(err) {
+        console.error("Erreur parsing SSE :", err);
+      }
+    };
 
-  <div id="humidityPage" class="page chart-page">
-    <canvas id="humidityChart"></canvas>
-  </div>
-
-  <script src="script.js" defer></script>
+    evtSource.onerror = (err) => {
+      console.error("SSE connection error:", err);
+    };
+  </script>
 </body>
 </html>
-
