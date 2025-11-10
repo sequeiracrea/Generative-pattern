@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Embed Circle</title>
-<style>
-  #circle {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: #00aaff;
-    transition: all 0.1s linear;
-    top: 0;
-    left: 0;
-  }
-  body { margin:0; overflow:hidden; }
-</style>
+  <meta charset="UTF-8">
+  <title>Bridge WebSocket Test</title>
 </head>
 <body>
-<div id="circle"></div>
-<script src="script.js" defer></script>
+  <h1>Test WebSocket</h1>
+  <pre id="log"></pre>
+
+  <script>
+    const log = document.getElementById('log');
+    const ws = new WebSocket('wss://protopie-bridge.onrender.com'); // Remplace par ton URL Render
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      log.textContent += `x: ${data.x}, y: ${data.y}\n`;
+    };
+
+    ws.onopen = () => {
+      log.textContent += '✅ WebSocket connecté !\n';
+    };
+
+    ws.onclose = () => {
+      log.textContent += '❌ WebSocket fermé\n';
+    };
+  </script>
 </body>
 </html>
