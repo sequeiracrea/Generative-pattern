@@ -18,6 +18,19 @@ window.addEventListener("message", (event) => {
   }
 });
 
+// Connect Protopie data
+const evtSource = new EventSource("https://protopie-bridge.onrender.com/events");
+
+evtSource.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  const circle = document.getElementById("circle");
+  if (circle) {
+    circle.style.transform = `translate(${data.x}px, ${data.y}px)`;
+  }
+};
+
+// Circle test
+
 const circle = document.getElementById("circle");
 
 window.addEventListener("message", (event) => {
