@@ -40,6 +40,26 @@
     evtSource.onerror = (err) => {
       console.error("SSE connection error:", err);
     };
+
+    // Sélectionne le cercle
+const circle = document.getElementById("circle");
+
+// Écoute les messages venant de Connect (via ProtoPie)
+window.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || !data.name) return;
+
+  // Vérifie qu'on reçoit bien le message du type "mouse_move"
+  if (data.name === "mouse_move") {
+    const x = parseFloat(data.x);
+    const y = parseFloat(data.y);
+
+    // Déplace le cercle
+    circle.style.left = `${x - circle.offsetWidth / 2}px`;
+    circle.style.top = `${y - circle.offsetHeight / 2}px`;
+  }
+});
+
   </script>
 </body>
 </html>
