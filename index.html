@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Circle Web Embed</title>
-</head>
-<body>
-  <div id="circle" style="
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #00aaff;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Embed Circle</title>
+<style>
+  #circle {
     position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #00aaff;
+    transition: all 0.1s linear;
     top: 0;
     left: 0;
-    transition: all 0.05s linear;">
-  </div>
-<script src="script.js"></script>
+  }
+  body { margin:0; overflow:hidden; }
+</style>
+</head>
+<body>
+<div id="circle"></div>
+<script src="embed.js" defer></script>
 </body>
 </html>
