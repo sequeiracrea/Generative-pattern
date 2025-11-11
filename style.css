@@ -1,20 +1,33 @@
-#cursor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: red;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #0f172a;
+  color: #f8fafc;
+  margin: 0;
+  padding: 2rem;
 }
 
-#debug {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  padding: 5px;
-  font-family: monospace;
+h1 {
+  margin-bottom: 1.5rem;
+}
+
+#viewer {
+  position: relative;
+  margin: 0 auto;
+  width: 800px;
+  height: 500px;
+  background: #1e293b;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+#cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #38bdf8;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.05s linear, top 0.05s linear;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
 }
