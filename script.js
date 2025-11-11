@@ -5,8 +5,8 @@ let targetX = 0;
 let targetY = 0;
 let currentX = 0;
 let currentY = 0;
-let moving = false; // indique si on doit bouger
 
+// 🟢 Connexion SSE
 const evtSource = new EventSource("https://protopie-bridge.onrender.com/events");
 
 evtSource.onmessage = (event) => {
@@ -15,7 +15,6 @@ evtSource.onmessage = (event) => {
     if (typeof data.x === "number" && typeof data.y === "number") {
       targetX = data.x;
       targetY = data.y;
-      moving = true; // nouvelle donnée, on doit bouger
       debug.textContent = `x: ${targetX.toFixed(2)} | y: ${targetY.toFixed(2)}`;
     }
   } catch (err) {
@@ -23,30 +22,24 @@ evtSource.onmessage = (event) => {
   }
 };
 
+// 🌀 Animation fluide avec easing + vitesse maximale
 function animate() {
-  if (moving) {
-    const maxStep = 30;
-    let dx = targetX - currentX;
-    let dy = targetY - currentY;
+  const easing = 0.15; // plus petit = plus fluide mais plus lent
+  const maxStep = 50;   // limite déplacement par frame pour éviter "sauts" si backlog SSE
 
-    // Limiter le pas
-    if (Math.abs(dx) > maxStep) dx = dx > 0 ? maxStep : -maxStep;
-    if (Math.abs(dy) > maxStep) dy = dy > 0 ? maxStep : -maxStep;
+  // Calcul delta
+  let dx = targetX - currentX;
+  let dy = targetY - currentY;
 
-    currentX += dx;
-    currentY += dy;
+  // Limiter le pas maximal
+  if (Math.abs(dx) > maxStep) dx = dx > 0 ? maxStep : -maxStep;
+  if (Math.abs(dy) > maxStep) dy = dy > 0 ? maxStep : -maxStep;
 
-    cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+  currentX += dx * easing;
+  currentY += dy * easing;
 
-    // Vérifier si on a atteint la cible
-    if (Math.abs(targetX - currentX) < 0.5 && Math.abs(targetY - currentY) < 0.5) {
-      moving = false; // arrêt du mouvement
-      currentX = targetX;
-      currentY = targetY;
-    }
-  }
+  cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
   requestAnimationFrame(animate);
 }
-
 animate();
