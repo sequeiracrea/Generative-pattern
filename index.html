@@ -1,39 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProtoPie Bridge Viewer</title>
+    <title>Generative Pattern Cursor</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>🧭 ProtoPie Bridge – Viewer temps réel</h1>
-    <div id="viewer">
-      <div id="cursor"></div>
-    </div>
+    <div id="cursor"></div>
+    <pre id="debug"></pre>
 
-    <script>
-      const viewer = document.getElementById("viewer");
-      const cursor = document.getElementById("cursor");
-
-      const evtSource = new EventSource("/events");
-
-      let lastUpdate = 0;
-      evtSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        const now = Date.now();
-
-        // Évite d'inonder le DOM avec trop de frames
-        if (now - lastUpdate < 16) return; // ~60fps
-        lastUpdate = now;
-
-        if (data.x !== undefined) cursor.style.left = `${data.x}px`;
-        if (data.y !== undefined) cursor.style.top = `${data.y}px`;
-      };
-
-      evtSource.onerror = () => {
-        console.warn("⚠️ Perte de connexion SSE...");
-      };
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
