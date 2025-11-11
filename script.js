@@ -6,10 +6,13 @@ let targetY = 0;
 let currentX = 0;
 let currentY = 0;
 
-// 🟢 Connexion SSE
-const evtSource = new EventSource("https://protopie-bridge.onrender.com/events");
+// 🟢 Connexion WebSocket (remplace l'ancien EventSource)
+const socket = new WebSocket("wss://protopie-bridge.onrender.com");
 
-evtSource.onmessage = (event) => {
+socket.onopen = () => console.log("✅ Connecté au serveur WebSocket");
+socket.onerror = (err) => console.error("⚠️ Erreur WebSocket :", err);
+
+socket.onmessage = (event) => {
   try {
     const data = JSON.parse(event.data);
     if (data.x !== undefined && data.y !== undefined) {
@@ -18,14 +21,14 @@ evtSource.onmessage = (event) => {
       debug.textContent = `x: ${targetX.toFixed(2)} | y: ${targetY.toFixed(2)}`;
     }
   } catch (err) {
-    console.warn("Erreur de parsing SSE :", err);
+    console.warn("⚠️ Message non valide :", event.data);
   }
 };
 
 // 🌀 Animation fluide (60 fps)
 function animate() {
-  // interpolation lissée
-  const easing = 0.2;
+  // interpolation douce pour fluidifier le mouvement
+  const easing = 0.25; // un peu plus fluide que 0.2
   currentX += (targetX - currentX) * easing;
   currentY += (targetY - currentY) * easing;
 
