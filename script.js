@@ -13,6 +13,7 @@ evtSource.onmessage = (event) => {
   try {
     const data = JSON.parse(event.data);
     if (typeof data.x === "number" && typeof data.y === "number") {
+      // On ne garde que la dernière position reçue
       targetX = data.x;
       targetY = data.y;
       debug.textContent = `x: ${targetX.toFixed(2)} | y: ${targetY.toFixed(2)}`;
@@ -22,24 +23,23 @@ evtSource.onmessage = (event) => {
   }
 };
 
-// 🌀 Animation fluide avec easing + vitesse maximale
+// 🌀 Animation catch-up (skip positions intermédiaires si trop rapides)
 function animate() {
-  const easing = 0.15; // plus petit = plus fluide mais plus lent
-  const maxStep = 50;   // limite déplacement par frame pour éviter "sauts" si backlog SSE
+  const maxStep = 30; // déplacement max par frame (px)
 
-  // Calcul delta
   let dx = targetX - currentX;
   let dy = targetY - currentY;
 
-  // Limiter le pas maximal
+  // Limiter le déplacement pour éviter les “sauts”
   if (Math.abs(dx) > maxStep) dx = dx > 0 ? maxStep : -maxStep;
   if (Math.abs(dy) > maxStep) dy = dy > 0 ? maxStep : -maxStep;
 
-  currentX += dx * easing;
-  currentY += dy * easing;
+  currentX += dx;
+  currentY += dy;
 
   cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
   requestAnimationFrame(animate);
 }
+
 animate();
