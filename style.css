@@ -1,17 +1,17 @@
 #cursor {
-  position: absolute;
   width: 20px;
   height: 20px;
-  background: red;
   border-radius: 50%;
+  background: red;
+  position: absolute;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  transform: translate(0px, 0px);
-  transition: transform 0.01s linear; /* optionnel, ajoute un lissage supplémentaire */
 }
 
 #debug {
   position: fixed;
-  top: 10px;
+  bottom: 10px;
   left: 10px;
   background: rgba(0,0,0,0.5);
   color: white;
