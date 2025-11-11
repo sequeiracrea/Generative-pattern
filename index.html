@@ -1,29 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Bridge WebSocket Test</title>
-</head>
-<body>
-  <h1>Test WebSocket</h1>
-  <pre id="log"></pre>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Generative Pattern Cursor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="cursor"></div>
+    <pre id="debug"></pre>
 
-  <script>
-    const log = document.getElementById('log');
-    const ws = new WebSocket('wss://protopie-bridge.onrender.com'); // Remplace par ton URL Render
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      log.textContent += `x: ${data.x}, y: ${data.y}\n`;
-    };
-
-    ws.onopen = () => {
-      log.textContent += '✅ WebSocket connecté !\n';
-    };
-
-    ws.onclose = () => {
-      log.textContent += '❌ WebSocket fermé\n';
-    };
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
