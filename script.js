@@ -22,26 +22,24 @@ evtSource.onmessage = (event) => {
   }
 };
 
-// 🌀 Animation adaptative
+// 🌀 Animation fluide avec easing + vitesse maximale
 function animate() {
-  // Calcul de la distance au target
-  const dx = targetX - currentX;
-  const dy = targetY - currentY;
-  const distance = Math.sqrt(dx * dx + dy * dy);
+  const easing = 0.15; // plus petit = plus fluide mais plus lent
+  const maxStep = 50;   // limite déplacement par frame pour éviter "sauts" si backlog SSE
 
-  // Easing adaptatif : plus loin = plus rapide, plus proche = plus lent
-  const maxEasing = 0.3;  // vitesse maximale
-  const minEasing = 0.05; // vitesse minimale pour ne jamais s'arrêter
-  const easing = Math.min(maxEasing, Math.max(minEasing, distance / 100));
+  // Calcul delta
+  let dx = targetX - currentX;
+  let dy = targetY - currentY;
 
-  // Déplacement
+  // Limiter le pas maximal
+  if (Math.abs(dx) > maxStep) dx = dx > 0 ? maxStep : -maxStep;
+  if (Math.abs(dy) > maxStep) dy = dy > 0 ? maxStep : -maxStep;
+
   currentX += dx * easing;
   currentY += dy * easing;
 
-  // Appliquer la transformation
   cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
 
   requestAnimationFrame(animate);
 }
-
 animate();
