@@ -1,30 +1,20 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: radial-gradient(circle at center, #0a0a0a, #000);
-  overflow: hidden;
-}
-
 #cursor {
   position: absolute;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.8);
+  width: 20px;
+  height: 20px;
+  background: red;
   border-radius: 50%;
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
-  transition: transform 0.1s ease-out;
+  transform: translate(0px, 0px);
+  transition: transform 0.01s linear; /* optionnel, ajoute un lissage supplémentaire */
 }
 
 #debug {
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   left: 10px;
-  color: #0f0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 5px;
   font-family: monospace;
-  font-size: 12px;
-  opacity: 0.6;
 }
