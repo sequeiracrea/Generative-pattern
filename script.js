@@ -24,8 +24,8 @@ evtSource.onmessage = (event) => {
 
 // 🌀 Animation fluide avec easing + vitesse maximale
 function animate() {
-  const easing = 0.15; // plus petit = plus fluide mais plus lent
-  const maxStep = 50;   // limite déplacement par frame pour éviter "sauts" si backlog SSE
+  const easing = 0.5; // plus petit = plus fluide mais plus lent
+  const maxStep = 20;   // limite déplacement par frame pour éviter "sauts" si backlog SSE
 
   // Calcul delta
   let dx = targetX - currentX;
